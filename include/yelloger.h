@@ -57,8 +57,7 @@ public:
 
   /*! @brief Enables file output.
    *  @details Logs will be written to /log.txt. If the file doesn't exist, it will create it automatically.  */
-  static bool EnableFileOutput()
-  {
+  static bool EnableFileOutput() {
     Yellog& logger_instance = get_instance();
     logger_instance.filepath = "log.txt";
     return logger_instance.enable_file_output();
@@ -66,8 +65,7 @@ public:
 
   /*! @brief Enables file output.
    *  @details Logs will be written to given filepath. If the file doesn't exist, it will create it automatically.  */
-  static bool EnableFileOutput(const char* new_filepath)
-  {
+  static bool EnableFileOutput(const char* new_filepath) {
     Yellog& logger_instance = get_instance();
     logger_instance.filepath = new_filepath;
     return logger_instance.enable_file_output();
