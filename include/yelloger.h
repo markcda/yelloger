@@ -90,42 +90,42 @@ public:
   /*! @brief Logs @a message with log priority level @a Yellog::TracePriority.
    *  @details Follows @a printf specification.  */
   template<typename... Args>
-  static void Trace(const QString &message, Args... args) { 
+  static void Trace(const char* message, Args... args) { 
     get_instance().log("[TRACE]     ", TracePriority, message, args...);
   }
 
   /*! @brief Logs @a message with log priority level @a Yellog::DebugPriority.
    *  @details Follows @a printf specification.  */
   template<typename... Args>
-  static void Debug(const QString &message, Args... args) {
+  static void Debug(const char* message, Args... args) {
     get_instance().log("[DEBUG]     ", DebugPriority, message, args...);
   }
 
   /*! @brief Logs @a message with log priority level @a Yellog::InfoPriority.
    *  @details Follows @a printf specification.  */
   template<typename... Args>
-  static void Info(const QString &message, Args... args) {
+  static void Info(const char* message, Args... args) {
     get_instance().log("[INFO ]     ", InfoPriority, message, args...);
   }
 
   /*! @brief Logs @a message with log priority level @a Yellog::WarnPriority.
    *  @details Follows @a printf specification.  */
   template<typename... Args>
-  static void Warn(const QString &message, Args... args) {
+  static void Warn(const char* message, Args... args) {
     get_instance().log("[WARN ]     ", WarnPriority, message, args...);
   }
 
   /*! @brief Logs @a message with log priority level @a Yellog::ErrorPriority.
    *  @details Follows @a printf specification.  */
   template<typename... Args>
-  static void Error(const QString &message, Args... args) {
+  static void Error(const char* message, Args... args) {
     get_instance().log("[ERROR]     ", ErrorPriority, message, args...);
   }
 
   /*! @brief Logs @a message with log priority level @a Yellog::CriticalPriority.
    *  @details Follows @a printf specification.  */
   template<typename... Args>
-  static void Critical(const QString &message, Args... args) {
+  static void Critical(const char* message, Args... args) {
     get_instance().log("[CRIT ]     ", CriticalPriority, message, args...);
   }
 
@@ -140,7 +140,7 @@ private:
   void log(
     [[maybe_unused]] const char* message_priority_str,
     LogPriority message_priority, 
-    [[maybe_unused]] const QString &message,
+    [[maybe_unused]] const char* message,
     [[maybe_unused]] Args... args)
   {
     if (priority <= message_priority) {
@@ -151,14 +151,14 @@ private:
       std::strftime(buffer, 80, timestamp_format, timestamp);
       std::printf("%s    ", buffer);
       std::printf(message_priority_str);
-      std::printf(message.toLocal8Bit().constData(), args...);
+      std::printf(message, args...);
       std::printf("\n");
 
       if (file)
       {
         std::fprintf(file, "%s    ", buffer);
         std::fprintf(file, message_priority_str);
-        std::fprintf(file, message.toLocal8Bit().constData(), args...);
+        std::fprintf(file, message, args...);
         std::fprintf(file, "\n");
       }
     }
